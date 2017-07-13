@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:th="www.thymeleaf.org"
+         xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Birds That Make Sounds Post</title>
+    <th:block th:replace="base2 :: head"></th:block>
+</head>
+<body>
+<th:block th:replace="base2 :: nav"></th:block>
+
+        <div class="container">
+            <br /><br />
+            <h1>Upload your pictures</h1>
+
+            <form method="POST" action="/upload" enctype="multipart/form-data">
+                <input type="file" name="file" /><br/><br/>
+                <input type="submit" value="Submit" />
+            </form>
+            <div th:if="${message}">
+                <h2 th:text="${message}"></h2><br/><br/>
+            </div>
+            <div th:if="${imageurl} != null">
+                <img th:src="${imageurl}" />
+                <hr />
+                <div th:utext="${sizedimageurl}"></div>
+                 <div th:utext="${cropped4040imageurl}"></div>
+                  <div th:utext="${uncroppedimageurl}"></div>
+                   <div th:utext="${fixedheightimageurl}"></div>
+
+                </div>
+            </div>
+       <!-- /.container -->
+
+      <th:block th:replace="base2 :: footlinks"></th:block>
+</body>
+</html>

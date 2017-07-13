@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html 	xmlns="http://www.w3.org/1999/xhtml"
+         xmlns:th="www.thymeleaf.org"
+         xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Birds That Make Sounds Post</title>
+    <th:block th:replace="base2 :: head"></th:block>
+</head>
+<body>
+<th:block th:replace="base2 :: nav"></th:block>
+
+<div class="container">
+    <br /><br /><br />
+    <h4>Posts</h4>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Username</th>
+            <th>Date Registered</th>
+            <th>View Posts</th>
+            <th>Friendship</th>
+
+        </tr>
+        <tr th:each="row : ${users}">
+            <td th:text="${row.username}"></td>
+            <td th:text="${row.getFormatDate()}"></td>
+            <td><form class="form-inline" th:action="@{/generate/posts}" th:object="${profileBuilder}" method="post">
+            <div class="hidden">
+                <label>
+                    <input type="text" name="blankText" id="blankText1"  th:value="${row.username}" th:field="*{profileBuilderValue}" aria-label="..."/>
+                </label>
+            </div>
+            <button type="submit" class="btn btn-default">View Posts</button>
+        </form></td>
+            <td><form class="form-inline" th:action="@{/follow}" th:object="${follow}" method="post">
+                <div class="hidden">
+                    <label>
+                        <input type="text" name="blankText" id="blankText2"  th:value="${row.username}" th:field="*{followValue}" aria-label="..."/>
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input type="radio" name="blankRadio" id="blankRadio1" value="follow" th:field="*{followType}" aria-label="..."/>
+                        Follow
+                    </label>
+
+                    <label>
+                        <input type="radio" name="blankRadio" id="blankRadio2" th:value="unfollow" th:field="*{followType}" aria-label="..."/>
+                        Unfollow
+                    </label>
+
+                    <!--<label>
+                        <input type="radio" name="blankRadio" id="blankRadio3" th:value="block" th:field="*{followType}" aria-label="..."/>
+                        Block
+                    </label>-->
+                </div>
+
+                <button type="submit" class="btn btn-default">Change Friendship</button>
+            </form></td>
+
+
+        </tr>
+    </table>
+
+</div><!-- /.container -->
+
+<th:block th:replace="base2 :: footlinks"></th:block>
+</body>
+</html>
